@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}
+Home | My Snippets
+{% endblock %}
+
+
+{% block content %}
+	<h2>My Snippets</h2>
+
+	{% if messages %}
+	<!--// Messages -->
+	<ul class="messages">
+	  {% for message in messages %}
+	  <li class="{{ message.tags }}">{{ message }}</li>
+	  {% endfor %}
+	  </ul>
+	{% endif %}
+
+	<!--// Snippets List -->
+	{% if user.snippets.all %}
+	<ul>
+		{% for snippet in user.snippets.all %}
+		<li>
+			<a href="{{ snippet.get_absolute_url }}">
+				{% if snippet.title %}
+				{{ snippet.title }}
+				{% else %}
+				Untitled
+				{% endif %}
+			</a>
+			<a href="{% url 'edit_snippet' snippet.id %}">Edit</a>
+			<a href="{% url 'delete_snippet' snippet.id %}">Delete</a>
+		</li>
+		{% endfor %}
+	</ul>
+	{% else %}
+	<p>You haven't added any snippets yet.</p>
+	{% endif %}
+	{% endblock %}
+

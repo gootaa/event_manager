@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Explore New Events{% endblock %}</title>
+</head>
+<body>
+	<div>
+		<!--// Header -->
+		{% block header %}
+		<header>
+			<h1><a href="{% url 'home' %}">Events</a></h1>
+			<!--// Search Form -->
+			<div id='search-form'>
+			<form action="{% url 'search' %}" method="GET">
+				{% for field in search_form %}
+				<p>{{ field }}</p>
+				{% endfor %}
+				<p><input type="submit" value="Search"></p>
+			</form>
+			</div>
+			<!--// Site Navigation -->
+			<nav>
+				<a href="{% url 'event_list' %}">All Events</a>
+				{% if user.is_authenticated %}
+				<a href="{% url 'add_event' %}">New Event</a>
+				<a href="{% url 'my_events' %}">My Events</a>
+				<a href="#">Logout</a>
+				<a href="#">Account Settings</a>
+				{% else %}
+				<a href="#">Login</a>
+				<a href="#">Register</a>
+<!-- 				<a href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a>-->				
+				{% endif %}
+			</nav>
+		</header>
+		{% endblock %}
+
+		<!--// Main content -->
+		<main>
+		{% block content %}
+		{% endblock %}
+		</main>
+		
+		<!--//Footer-->
+		<footer>
+			<p> &copy; 2018. All Rights Reserved. Made By <a href='https://twitter.com/gootacs'>Abdullah</a>.</p>
+		</footer>
+	</div>
+</body>
+</html>

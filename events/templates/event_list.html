@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+{% if category %}{{ category.name }}{% else %}All{% endif %} Events
+{% endblock %}
+
+
+{% block content %}
+<!-- Categories Side Bar -->
+<aside>
+	<ul>
+		<li {% if not category %}class="selected"{% endif %}>
+			<a href="{% url 'event_list' %}">All</a>
+		</li>
+		{% for c in categories %}
+		<li {% if category.slug == c.slug %}class="selected"{% endif %}>
+			<a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+		</li>
+		{% endfor %}
+	</ul>
+</aside>
+
+<!-- Events Listing Section -->
+<section>
+	<h2>{% if category %}{{ category.name }}{% else %}All{% endif %} Events</h2>
+	{% if events %}
+	{% for event in events %}
+	<div>
+		<h3>{{ event.name }}</h3>
+		<p>Hosted by {{ event.host.get_full_name }}. Hosted from {{ event.start_time }} to {{ event.end_time }}.</p>
+	</div>
+	{% endfor %}
+	{% else %}
+	<p>There is no events in this category at the moment.</p>
+	{% endif %}
+</section>
+{% endblock %}

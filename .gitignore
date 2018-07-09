@@ -1,0 +1,6 @@
+*.pyc
+.env
+.ini
+db.sqlite3
+migrations/
+logs/
