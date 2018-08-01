@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate
+from django.contrib.postgres.search import SearchVector
 from django.views.generic import TemplateView
 from django.utils import timezone
 
@@ -40,7 +41,7 @@ def event_detail(request, event_slug):
     Standard detail view
     """
     event = get_object_or_404(Event, slug=event_slug)
-    return render(request, 'event_detail.html', {'event'})
+    return render(request, 'event_detail.html', {'event':event})
 
 
 @login_required

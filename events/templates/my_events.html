@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+My Events
+{% endblock %}
+
+{% block content %}
+{% if events %}
+<!--// Events -->
+<section>
+	{% for event in events %}
+	<div>
+		<h2><a href="{{ event.get_absolute_url }}">{{ event.title }}</a></h2>
+		<a href="{% url 'edit_event' event.slug %}">Edit</a>
+		<a href="{% url 'delete_event' event.slug %}">Delete</a>
+	</div>
+	{% endfor %}
+</section>
+{% else %}
+<p>You haven't added any events yet</p>
+{% endif %}
+{% endblock %}

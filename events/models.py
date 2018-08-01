@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.conf import settings
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.text import slugify
@@ -23,7 +23,7 @@ class Category(models.Model):
 
 class Event(models.Model):
     
-    host = models.ForeignKey(User, related_name='events')
+    host = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='events')
     category = models.ForeignKey(Category, related_name='events')
     title = models.CharField(max_length=250, unique=True)
     slug = models.SlugField(max_length=250, unique=True)

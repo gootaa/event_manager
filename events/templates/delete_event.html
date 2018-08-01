@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Add Event
+{% endblock %}
+
+{% block content %}
+<section>
+	<h2>Confirm deleting event</h2>
+  <span>type the name of the event you wanted to delete and your password</span>
+	<form method="post">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+      {% for field in form %}
+      <div class="form-item">
+        <div class="label">
+          {{ field.label_tag }}
+        </div>
+        <div class="field">
+          {{ field }}
+        </div>
+        <div class="info">
+          {% if field.help_text %}
+            <small>{{ field.help_text }}</small>
+          {% endif %}
+          {% for error in field.errors %}
+            <p style="color: #cc0000">{{ error }}</p>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+      <button type="submit">Delete</button>
+    </form>
+</section>
+{% endblock %}

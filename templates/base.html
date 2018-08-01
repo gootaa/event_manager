@@ -6,35 +6,43 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Explore New Events{% endblock %}</title>
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/normalize.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    {% block extra_css %}{% endblock %}
 </head>
 <body>
-	<div>
+	<div class="page">
 		<!--// Header -->
 		{% block header %}
 		<header>
-			<h1><a href="{% url 'home' %}">Events</a></h1>
+			<h1 id="brand"><a href="{% url 'home' %}">Events</a></h1>
 			<!--// Search Form -->
 			<div id='search-form'>
-			<form action="{% url 'search' %}" method="GET">
-				{% for field in search_form %}
-				<p>{{ field }}</p>
-				{% endfor %}
-				<p><input type="submit" value="Search"></p>
-			</form>
+				<form action="{% url 'search' %}" method="GET">
+					{% for field in search_form %}
+					<p>{{ field }}</p>
+					{% endfor %}
+					<p><input class="btn" type="submit" value="Search"></p>
+				</form>
 			</div>
 			<!--// Site Navigation -->
 			<nav>
-				<a href="{% url 'event_list' %}">All Events</a>
-				{% if user.is_authenticated %}
-				<a href="{% url 'add_event' %}">New Event</a>
-				<a href="{% url 'my_events' %}">My Events</a>
-				<a href="#">Logout</a>
-				<a href="#">Account Settings</a>
-				{% else %}
-				<a href="#">Login</a>
-				<a href="#">Register</a>
-<!-- 				<a href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a>-->				
-				{% endif %}
+				<img src="{% static 'img/menu.svg' %}" id="menu-icon">
+				<div class="nav-bar">
+					<a href="{% url 'event_list' %}">All Events</a>
+					{% if user.is_authenticated %}
+					<a href="{% url 'add_event' %}">New Event</a>
+					<a href="{% url 'my_events' %}">My Events</a>
+					<a href="{% url 'logout' %}">Logout</a>
+					<a href="{% url 'account_settings' %}">Account Settings</a>
+					{% else %}
+					<a href="{% url 'login' %}">Login</a>
+					<a href="{% url 'register' %}">Register</a>				
+					{% endif %}
+				</div>
 			</nav>
 		</header>
 		{% endblock %}
@@ -50,5 +58,17 @@
 			<p> &copy; 2018. All Rights Reserved. Made By <a href='https://twitter.com/gootacs'>Abdullah</a>.</p>
 		</footer>
 	</div>
+
+	<script type="text/javascript">
+		(function() {
+			let menu = document.querySelector('.nav-bar'),
+				menuLink = document.querySelector('#menu-icon')
+
+			menuLink.addEventListener('click', function(e) {
+				menu.classList.toggle('active')
+				e.preventDefault()
+			})
+		})()
+	</script>
 </body>
 </html>

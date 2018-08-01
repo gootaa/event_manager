@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+{{ event.title }}
+{% endblock %}
+
+{% block content %}
+<!--// Event title and host -->
+<section>
+	<h2>{{ event.title }}</h2>
+	<span>{{ event.host }}</span>
+</section>
+
+<!--// Dates and Location -->
+<section>
+	<span>starts: {{ event.start_time }} end: {{ event.end_time }}</span>
+	<span>location: {{ event.location }}</span>
+</section>
+
+<!--// Detailed description and tickets link -->
+<section>
+	<p>{{ event.description }}</p>
+	{% if event.tickets_url %}
+	<a href="{{ event.tickets_url }}">Book Now</a>
+	{% endif %}
+</section>
+{% endblock %}

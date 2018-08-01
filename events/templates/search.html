@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Results
+{% endblock %}
+
+{% block content %}
+<!--// Search Results -->
+<section>
+	{% if results %}
+	{% for event in results %}
+	<div>
+		<h3>{{ event.name }}</h3>
+		<p>Hosted by {{ event.host.get_full_name }}. Hosted from {{ event.start_time }} to {{ event.end_time }}.</p>
+	</div>
+	{% endfor %}
+	{% else %}
+	<p>Nothing found.</p>
+	{% endif %}
+</section>
+{% endblock %}
